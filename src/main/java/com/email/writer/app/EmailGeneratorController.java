@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @CrossOrigin(origins = "*")
 public class EmailGeneratorController {
-    @Autowired
     private  EmailGeneratorService emailGeneratorService;
 
     @PostMapping("/generate")
