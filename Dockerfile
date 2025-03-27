@@ -1,19 +1,23 @@
-# Use an official OpenJDK runtime as a parent image
-FROM eclipse-temurin:17-jdk
+# Use a base image with JDK 21
+FROM eclipse-temurin:21-jdk
 
-# Set the working directory inside the container
+# Set working directory
 WORKDIR /app
 
-# Copy the Maven project files to the container
-COPY pom.xml ./
-COPY src ./src
+# Copy project files
+COPY . .
 
-# Build the application inside the container
+# Install Maven (if needed)
 RUN apt-get update && apt-get install -y maven
+
+# Verify Java version
+RUN java -version
+
+# Build the project
 RUN mvn clean package -DskipTests
 
-# Expose the application port (change it if necessary)
+# Expose port
 EXPOSE 8080
 
-# Run the Spring Boot application
+# Run application
 CMD ["java", "-jar", "target/email-writer-sb-0.0.1-SNAPSHOT.jar"]
