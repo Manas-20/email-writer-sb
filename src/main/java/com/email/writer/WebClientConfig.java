@@ -1,4 +1,4 @@
-package com.email.writer.config;
+package com.email.writer;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
