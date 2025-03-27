@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.email.writer", "com.email.writer.app"})
+@ComponentScan(basePackages = {"com.email.writer.app"})
 public class EmailWriterSbApplication {
 
 	public static void main(String[] args) {
