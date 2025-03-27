@@ -20,6 +20,7 @@ public class EmailGeneratorService {
     @Value("${gemini.api.key}")
     private String geminiApiKey;
 
+    @Autowired
     public EmailGeneratorService(WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder.build();
     }
@@ -31,9 +32,9 @@ public class EmailGeneratorService {
         // Craft a request
         Map<String, Object> requestBody = Map.of(
                 "contents", new Object[] {
-                       Map.of("parts", new Object[]{
-                               Map.of("text", prompt)
-                       })
+                        Map.of("parts", new Object[]{
+                                Map.of("text", prompt)
+                        })
                 }
         );
 
@@ -68,7 +69,7 @@ public class EmailGeneratorService {
 
     private String buildPrompt(EmailRequest emailRequest) {
         StringBuilder prompt = new StringBuilder();
-        prompt.append("Generate a professional email reply for hte following email content. Please don't generate a subject line ");
+        prompt.append("Generate a professional email reply for the following email content. Please don't generate a subject line ");
         if (emailRequest.getTone() != null && !emailRequest.getTone().isEmpty()) {
             prompt.append("Use a ").append(emailRequest.getTone()).append(" tone.");
         }
