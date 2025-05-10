@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
-import reactor.core.publisher.Mono;
 
 import java.util.Map;
 
@@ -15,19 +13,18 @@ import java.util.Map;
 public class EmailGeneratorService {
 
     private final WebClient webClient;
-    private final ObjectMapper objectMapper;
-
+    @Autowired
+    public EmailGeneratorService(WebClient webClient) {
+        this.webClient = webClient;
+        System.out.println("🚀 EmailGeneratorService Initialized Successfully!");
+    }
     @Value("${gemini.api.url}")
     private String geminiApiUrl;
 
     @Value("${gemini.api.key}")
     private String geminiApiKey;
 
-    @Autowired
-    public EmailGeneratorService(WebClient.Builder webClientBuilder, ObjectMapper objectMapper) {
-        this.webClient = webClientBuilder.build();
-        this.objectMapper = objectMapper;
-    }
+
 
     public String generateEmailReply(EmailRequest emailRequest) {
         // Build the prompt
@@ -42,28 +39,23 @@ public class EmailGeneratorService {
                 }
         );
 
-        try {
-            // Do request and get response
-            String response = webClient.post()
-                    .uri(geminiApiUrl + geminiApiKey)
-                    .header("Content-Type","application/json")
-                    .bodyValue(requestBody)
-                    .retrieve()
-                    .bodyToMono(String.class)
-                    .onErrorResume(WebClientResponseException.class,
-                            ex -> Mono.error(new RuntimeException("API request failed: " + ex.getMessage())))
-                    .block();
+        // Do request and get response
+        String response = webClient.post()
+                .uri(geminiApiUrl + geminiApiKey)
+                .header("Content-Type","application/json")
+                .bodyValue(requestBody)
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
 
-            // Extract Response and Return
-            return extractResponseContent(response);
-        } catch (Exception e) {
-            return "Error generating email reply: " + e.getMessage();
-        }
+        // Extract Response and Return
+        return extractResponseContent(response);
     }
 
     private String extractResponseContent(String response) {
         try {
-            JsonNode rootNode = objectMapper.readTree(response);
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode rootNode = mapper.readTree(response);
             return rootNode.path("candidates")
                     .get(0)
                     .path("content")
@@ -72,7 +64,7 @@ public class EmailGeneratorService {
                     .path("text")
                     .asText();
         } catch (Exception e) {
-            return "Error processing API response: " + e.getMessage();
+            return "Error processing request: " + e.getMessage();
         }
     }
 
