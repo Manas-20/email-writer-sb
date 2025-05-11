@@ -1,5 +1,8 @@
 package com.email.writer.app;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.servers.Server;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -9,6 +12,12 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+@OpenAPIDefinition(
+	info = @Info(title = "Email Writer API", version = "1.0", description = "Generates emails"),
+	servers = {
+		@Server(url = "https://email-writer-sb-production-6521.up.railway.app", description = "Production Server")
+	}
+)
 @SpringBootApplication
 public class EmailWriterSbApplication {
 
