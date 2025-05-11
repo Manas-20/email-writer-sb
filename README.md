@@ -12,11 +12,11 @@ The **Email Writer Service** is a RESTful API built with **Spring Boot** that ge
 - **Cross-Origin Support**: Allows requests from different domains via **CORS**.
 
 ## Technologies Used
-- Java 17
-- Spring Boot 3.4
+- Java 21
+- Spring Boot
 - WebClient
 - Google Gemini API
-- Render (for deployment)
+- Railway (for deployment)
 - Swagger (for API documentation)
 
 ## API Endpoints
