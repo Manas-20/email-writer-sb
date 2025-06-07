@@ -15,7 +15,7 @@ import org.springframework.web.filter.CorsFilter;
 @OpenAPIDefinition(
 	info = @Info(title = "Email Writer API", version = "1.0", description = "Generates emails"),
 	servers = {
-		@Server(url = "https://email-writer-sb-production-6521.up.railway.app", description = "Production Server")
+		@Server(url = "https://email-writer-sb-production-a803.up.railway.app", description = "Production Server")
 	}
 )
 @SpringBootApplication
