@@ -41,8 +41,11 @@ public class EmailGeneratorService {
 
         // Do request and get response
         String response = webClient.post()
-                .uri(geminiApiUrl + geminiApiKey)
-                .header("Content-Type","application/json")
+                .uri(uriBuilder -> uriBuilder
+                        .path(geminiApiUrl)
+                        .queryParam("api_key", geminiApiKey)
+                        .build())
+                .header("Content-Type", "application/json")
                 .bodyValue(requestBody)
                 .retrieve()
                 .bodyToMono(String.class)
