@@ -12,11 +12,11 @@ The **Email Writer Service** is a RESTful API built with **Spring Boot** that ge
 - **Cross-Origin Support**: Allows requests from different domains via **CORS**.
 
 ## Technologies Used
-- Java 17
-- Spring Boot 3.4
+- Java 21
+- Spring Boot
 - WebClient
 - Google Gemini API
-- Render (for deployment)
+- Railway (for deployment)
 - Swagger (for API documentation)
 
 ## API Endpoints
@@ -58,8 +58,8 @@ The **Email Writer Service** is a RESTful API built with **Spring Boot** that ge
 
 ## Deployment
 The application is deployed on **Render** and can be accessed at:
-- 🔗 **[https://email-writer-sb-4.onrender.com](https://email-writer-sb-4.onrender.com)**
-- **Swagger UI:** [https://email-writer-sb-4.onrender.com/swagger-ui/index.html](https://email-writer-sb-4.onrender.com/swagger-ui/index.html)
+- 🔗 [](https://email-writer-sb-production-6521.up.railway.app/swagger-ui/index.html#)
+
 
 
 
